@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main()
+{
+    int fd1, fd2, n;
+    char source[200], dest[200];
+    char buffer[1024];
+
+    // SAME PROMPTS
+    printf("Enter the filename to open for reading\n");
+    scanf("%s", source);
+
+    printf("Enter the filename to open for writing\n");
+    scanf("%s", dest);
+
+    // Open source file
+    fd1 = open(source, O_RDONLY);
+    if (fd1 < 0)
+    {
+        printf("Error opening source file\n");
+        return 1;
+    }
+
+    // Open destination file
+    fd2 = open(dest, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (fd2 < 0)
+    {
+        printf("Error opening destination file\n");
+        return 1;
+    }
+
+    // Copy content
+    while ((n = read(fd1, buffer, sizeof(buffer))) > 0)
+    {
+        write(fd2, buffer, n);
+    }
+
+    close(fd1);
+    close(fd2);
+
+    // SAME FINAL LINE
+    printf("\nContents copied to %s\n", dest);
+
+    return 0;
+}
+

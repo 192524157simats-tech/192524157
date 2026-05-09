@@ -1,0 +1,59 @@
+#include <stdio.h>
+
+int main()
+{
+    int m, n, i, j, choice;
+    int block[10], process[10], allocated[10];
+
+    printf("Number of memory partition : ");
+    scanf("%d", &m);
+
+    printf("Number of process : ");
+    scanf("%d", &n);
+
+    printf("Enter the memory partitions :\n");
+    for(i = 0; i < m; i++)
+        scanf("%d", &block[i]);
+
+    printf("Enter process size :\n");
+    for(i = 0; i < n; i++) {
+        scanf("%d", &process[i]);
+        allocated[i] = -1;
+    }
+
+    printf("1.Firstfit\t 2. Bestfit\t 3. worstfit\n");
+    printf("Enter your choice : ");
+    scanf("%d", &choice);
+
+    for(i = 0; i < n; i++) {
+        int pos = -1;
+
+        for(j = 0; j < m; j++) {
+            if(block[j] >= process[i]) {
+                if(choice == 1) {
+                    pos = j;
+                    break;
+                }
+                else if(choice == 2) {
+                    if(pos == -1 || block[j] < block[pos])
+                        pos = j;
+                }
+                else if(choice == 3) {
+                    if(pos == -1 || block[j] > block[pos])
+                        pos = j;
+                }
+            }
+        }
+
+        if(pos != -1) {
+            printf("%d fits in %d\n", process[i], block[pos]);
+            block[pos] -= process[i];
+            allocated[i] = pos;
+        }
+        else {
+            printf("%d must wait for its process\n", process[i]);
+        }
+    }
+
+    return 0;
+}

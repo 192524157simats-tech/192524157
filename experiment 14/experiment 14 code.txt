@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    int choice;
+    char filename[20];
+
+    printf("1. Create\t 2. Copy\t 3. Delete\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+
+    switch(choice)
+    {
+        case 1:
+            printf("Enter file name: ");
+            scanf("%s", filename);
+            printf("File created successfully\n");
+            break;
+
+        case 2:
+            printf("File copied successfully\n");
+            break;
+
+        case 3:
+            printf("Enter file name: ");
+            scanf("%s", filename);
+            printf("Deleted successfully\n");
+            break;
+
+        default:
+            printf("Invalid choice\n");
+    }
+
+    return 0;
+}

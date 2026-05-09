@@ -1,0 +1,51 @@
+#include <stdio.h>
+
+struct Employee {
+    int id;
+    char name[20];
+    float salary;
+};
+
+int main()
+{
+    struct Employee e;
+    FILE *fp;
+    int choice;
+
+    printf("Employee Database Menu:\n");
+    printf("1. Add Employee\n");
+    printf("2. Display Employee\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+
+    if(choice == 1) {
+        fp = fopen("employee.dat", "wb");
+
+        printf("Enter Employee ID: ");
+        scanf("%d", &e.id);
+
+        printf("Enter Employee Name: ");
+        scanf("%s", e.name);
+
+        printf("Enter Salary: ");
+        scanf("%f", &e.salary);
+
+        fwrite(&e, sizeof(e), 1, fp);
+        fclose(fp);
+
+        printf("Employee added successfully\n");
+    }
+    else if(choice == 2) {
+        fp = fopen("employee.dat", "rb");
+
+        fread(&e, sizeof(e), 1, fp);
+
+        printf("Employee ID: %d\n", e.id);
+        printf("Employee Name: %s\n", e.name);
+        printf("Salary: %.2f\n", e.salary);
+
+        fclose(fp);
+    }
+
+    return 0;
+}
